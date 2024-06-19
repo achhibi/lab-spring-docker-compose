@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    container_name: postgres_container
+    restart: unless-stopped
+    env_file: ./.env
+    volumes:
+      - ./init-db/create-user.sh:/docker-entrypoint-initdb.d/init-database.sh
+    environment:
+      POSTGRES_USER: $POSTGRESDB_USER
+      #POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: $POSTGRESDB_ROOT_PASSWORD
+#      POSTGRES_DB: $POSTGRESDB_DATABASE
+    expose:
+      - $POSTGRESDB_DOCKER_PORT
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d labs_amch_db -h localhost -p 5432" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  app:
+    depends_on:
+      - db
+    build: .
+    restart: on-failure
+    env_file: ./.env
+    expose:
+      - $SPRING_DOCKER_PORT
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/labs_amch_db
+#      SPRING_APPLICATION_JSON: '{
+#        "spring.datasource.url"  : "jdbc:postgresql://db:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
+#        "spring.datasource.username" : "$POSTGRESDB_USER",
+#        "spring.datasource.password" : "$POSTGRESDB_ROOT_PASSWORD",
+#        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+#        "spring.jpa.hibernate.ddl-auto" : "update"
+#      }'
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:

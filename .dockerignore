@@ -1,0 +1,9 @@
+# Ignore les fichiers et répertoires spécifiques
+.git
+.idea
+*.log
+*.swp
+.mvn
+mvnw
+HELP.md
+mvnw.cmd

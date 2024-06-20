@@ -1,4 +1,4 @@
-# Spring Boot 3 & Docker Compose Integration
+# Spring Boot 3.3.0 & Docker Compose Integration
 
 This project demonstrates how to integrate Docker Compose with a **Spring Boot 3** application using PostgreSQL as the database and Liquibase for database schema management.
 

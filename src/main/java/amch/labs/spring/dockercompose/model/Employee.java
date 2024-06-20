@@ -1,4 +1,4 @@
-package amch.labs.spring.labs_spring_docker_compose.model;
+package amch.labs.spring.dockercompose.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

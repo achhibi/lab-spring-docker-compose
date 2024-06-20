@@ -1,4 +1,4 @@
-package amch.labs.spring.labs_spring_docker_compose;
+package amch.labs.spring.dockercompose;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

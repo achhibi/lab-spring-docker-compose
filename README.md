@@ -49,3 +49,15 @@ spring.docker.compose.stop.timeout=1m
    git clone https://github.com/achhibi/labs-spring-docker-compose.git
    cd labs-spring-docker-compose
 
+2. **Test:**
+
+```bash
+curl -X POST http://localhost:8080/employees \
+-H "Content-Type: application/json" \
+-d '{
+"firstName": "Aaa",
+"lastName": "Bbb",
+"email": "name@example.com",
+"phone": "1234567890"
+}'
+

@@ -1,8 +1,10 @@
 package amch.labs.spring.dockercompose.resource;
 
 
+import amch.labs.spring.dockercompose.jsonviews.EmployeeView;
 import amch.labs.spring.dockercompose.model.Employee;
 import amch.labs.spring.dockercompose.service.EmployeeService;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +18,14 @@ public class EmployeeController {
     private final Clock clock;
 
     @GetMapping
+    @JsonView(EmployeeView.External.class)
     public Iterable<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
+    }
+
+    @JsonView(EmployeeView.Internal.class)
+    @GetMapping("/internal")
+    public Iterable<Employee> getAllEmployeesPublic() {
         return employeeService.getAllEmployees();
     }
 
